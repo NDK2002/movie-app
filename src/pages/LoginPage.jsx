@@ -1,11 +1,19 @@
-import React from "react";
-import { FormProvider, FTextField } from "../components/form";
-import { Button, colors, Stack, styled, Typography } from "@mui/material";
+import React, { useState } from "react";
+import {
+  alpha,
+  Button,
+  IconButton,
+  InputAdornment,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { useLocation, useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
+import { FormProvider, FTextField } from "../components/form";
+import useAuth from "../hooks/useAuth";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string().required("Username is required"),
@@ -20,9 +28,10 @@ const defaultValues = {
 };
 
 function LoginPage() {
-  // let navigate = useNavigate();
-  // let location = useLocation();
-  // let auth = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+  let navigate = useNavigate();
+  let location = useLocation();
+  let auth = useAuth();
 
   const methods = useForm({
     resolver: yupResolver(LoginSchema),
@@ -31,17 +40,22 @@ function LoginPage() {
 
   const { handleSubmit } = methods;
 
-  // const onSubmit = async (data) => {
-  //   let from = location.state?.from?.pathname || "/";
-  //   let username = data.username;
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
-  //   auth.login(username, () => {
-  //     navigate(from, { replace: true });
-  //   });
-  // };
+  const onSubmit = async (data) => {
+    let from = location.state?.from?.pathname || "/";
+    let username = data.username;
+
+    auth.login(username, () => {
+      navigate(from, { replace: true });
+    });
+  };
 
   return (
-    <FormProvider methods={methods}>
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={3} sx={{ minWidth: "350px" }}>
         <Typography
           variant="h4"
@@ -55,9 +69,11 @@ function LoginPage() {
         <FTextField
           name="username"
           label="Username"
+          defaultvalues={defaultValues.username}
+          InputProps={{ style: { color: "#959595" } }}
           sx={{
             "& .MuiOutlinedInput-root": {
-              backgroundColor: "#383838",
+              backgroundColor: alpha("#383838", 0.5),
             },
             borderRadius: "10px",
           }}
@@ -65,19 +81,36 @@ function LoginPage() {
 
         <FTextField
           name="password"
+          type={showPassword ? "text" : "password"}
           label="Password"
           sx={{
             "& .MuiOutlinedInput-root": {
-              backgroundColor: "#383838",
+              backgroundColor: alpha("#383838", 0.5),
             },
             borderRadius: "10px",
+          }}
+          InputProps={{
+            style: { color: "#959595" },
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            ),
           }}
         />
 
         <Button
+          type="submit"
           variant="contained"
           sx={{
-            // bgcolor: (theme) => theme.palette.primary.main,
+            bgcolor: (theme) => theme.palette.primary.main,
             borderRadius: "20px",
           }}
         >

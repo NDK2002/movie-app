@@ -1,23 +1,15 @@
-import { CssBaseline } from "@mui/material";
+import { alpha, CssBaseline } from "@mui/material";
 import {
   createTheme,
   ThemeProvider as MUIThemeProvider,
 } from "@mui/material/styles";
 
 const PRIMARY = {
-  // lighter: "#99E2F9",
-  // light: "#71D7F6",
   main: "#D22F26",
-  // dark: "#2D9FC2",
-  // darker: "#217791",
   contrastText: "#FFF",
 };
 const SECONDARY = {
-  // lighter: "#D6E4FF",
-  // light: "#84A9FF",
   main: "#f44336",
-  // dark: "#1939B7",
-  // darker: "#091A7A",
   contrastText: "#FFF",
 };
 
@@ -35,6 +27,47 @@ const SUCCESS = {
   contrastText: "#FFF",
 };
 
+const GREY = {
+  10: "#E5E5E5",
+  20: "#DCDCDC",
+  25: "#D2D2D2",
+  50: "#BCBCBC",
+  100: "#B3B3B3",
+  150: "#979797",
+  200: "#808080",
+  250: "#777777",
+  300_40: alpha("#6D6D6E", 0.4),
+  300_70: alpha("#6D6D6E", 0.7),
+  350: "#545454",
+  400: "#414141",
+  450: "#404040",
+  500: "#3A3A3A",
+  550: "#363636",
+  600_60: alpha("#333333", 0.6),
+  600: "#333333",
+  650: "#2F2F2F",
+  700: "#2A2A2A",
+  750: "#262626",
+  800: "#232323",
+  850: "#181818",
+  900: "#141414",
+};
+
+const TRANSPARENT_WHITE = {
+  15: alpha("#FFFFFF", 0.15),
+  20: alpha("#FFFFFF", 0.2),
+  30: alpha("#FFFFFF", 0.3),
+  35: alpha("#FFFFFF", 0.35),
+  50: alpha("#FFFFFF", 0.5),
+  70: alpha("#FFFFFF", 0.7),
+};
+
+const TRANSPARENT_BLACK = {
+  30: alpha("#000000", 0.3),
+  60: alpha("#000000", 0.6),
+  90: alpha("#000000", 0.9),
+};
+
 function ThemeProvider({ children }) {
   const themeOptions = {
     palette: {
@@ -42,6 +75,9 @@ function ThemeProvider({ children }) {
       secondary: SECONDARY,
       background: BACKGROUND,
       success: SUCCESS,
+      grey: GREY,
+      transparent_while: TRANSPARENT_WHITE,
+      transparent_black: TRANSPARENT_BLACK,
     },
     shape: { borderRadius: 8 },
   };

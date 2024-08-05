@@ -20,7 +20,8 @@ function Router() {
         }
       >
         <Route index element={<HomePage />} />
-        <Route path="product/:id" element={<DetailPage />} />
+        <Route path="movie/popular" element={<HomePage />} />
+        <Route path="movie/:id" element={<DetailPage />} />
       </Route>
 
       <Route element={<BlankLayout />}>

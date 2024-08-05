@@ -1,5 +1,5 @@
 import { useFormContext, Controller } from "react-hook-form";
-import { colors, styled, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 
 function FTextField({ name, ...other }) {
   const { control } = useFormContext();
@@ -15,7 +15,6 @@ function FTextField({ name, ...other }) {
           error={!!error}
           helperText={error?.message}
           InputLabelProps={{ style: { color: "#959595" } }}
-          InputProps={{ style: { color: "#959595" } }}
           {...other}
         />
       )}
