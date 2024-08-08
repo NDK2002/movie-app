@@ -9,11 +9,18 @@ import Stack from "@mui/material/Stack";
 import RecommendIcon from "@mui/icons-material/Recommend";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import "../App.css";
 
 export default function MovieCard({ item }) {
   return (
-    <Card className="card" sx={{ width: 200, borderRadius: "3px", margin: 5 }}>
+    <Card
+      component={motion.div}
+      whileHover={{ scale: 1.5 }}
+      transition={{ type: "tween", stiffness: 400, damping: 10 }}
+      className="card"
+      sx={{ width: 200, borderRadius: "3px", margin: 5 }}
+    >
       <CardActionArea LinkComponent={Link} to={`/movie/${item.id}`}>
         <Box
           display="flex"
@@ -24,11 +31,11 @@ export default function MovieCard({ item }) {
               backgroundImage: `url(https://image.tmdb.org/t/p/original/${item.poster_path})`,
               backgroundRepeat: "no-repeat",
               backgroundSize: "cover",
-              height: "300px",
+              minHeight: "300px",
             },
           ]}
         >
-          <Paper className="content">
+          {/* <Paper className="content">
             <CardContent>
               <Box
                 display="flex"
@@ -40,45 +47,9 @@ export default function MovieCard({ item }) {
                     overflow: "hidden",
                   },
                 ]}
-              >
-                <Typography
-                  gutterBottom
-                  variant="body1"
-                  component="div"
-                  textcolor="#FFF"
-                >
-                  {item.original_title}
-                </Typography>
-
-                <Stack flexDirection="row" justifyContent="flex-end" mt={1}>
-                  <Box
-                    display="flex"
-                    flexDirection="row"
-                    justifyContent="center"
-                    mr={3}
-                  >
-                    <RecommendIcon
-                      className="recommend_icon"
-                      fontSize="small"
-                    />
-                    <Typography variant="subtitle2" ml={1} color="#FFFFFF">
-                      {item.vote_average}
-                    </Typography>
-                  </Box>
-                  <Box
-                    display="flex"
-                    flexDirection="row"
-                    justifyContent="center"
-                  >
-                    <FavoriteIcon className="favorite_icon" fontSize="small" />
-                    <Typography variant="subtitle2" ml={1} color="#FFFFFF">
-                      {item.vote_count}
-                    </Typography>
-                  </Box>
-                </Stack>
-              </Box>
+              ></Box>
             </CardContent>
-          </Paper>
+          </Paper> */}
         </Box>
       </CardActionArea>
     </Card>

@@ -18,30 +18,6 @@ import { Link } from "react-router-dom";
 import "../App.css";
 
 function TrendingCardGroup({ trendingList, loadingTrending }) {
-  const [cutList, setCutList] = useState();
-  const [copiedList, setcopiedList] = useState([]);
-
-  // function handleList() {
-  //   let y;
-  //   if (copiedList.length === 0) {
-  //     setcopiedList([...trendingList]);
-  //     y = [...trendingList].slice(0, 4);
-  //     copiedList.splice(0, 4);
-  //   } else if (copiedList.length === 4) {
-  //     setcopiedList([...trendingList]);
-  //     y = copiedList.splice(0, 4);
-  //   } else {
-  //     y = copiedList.splice(4, 4);
-  //   }
-  //   return y;
-  // }
-  const placeholder = [0, 1, 2, 3];
-  const detailSkeleton = (
-    <Stack spacing={1}>
-      <Skeleton variant="text" />
-      <Skeleton variant="rectangular" width="100%" height={300} />
-    </Stack>
-  );
   return (
     <>
       <Stack
@@ -52,8 +28,6 @@ function TrendingCardGroup({ trendingList, loadingTrending }) {
         <Typography variant="h5" color="#FFFFFF">
           TRENDING
         </Typography>
-
-        {/* <PaginationItem onClick={() => setCutList(handleList())} type="next" /> */}
       </Stack>
       <Divider />
       <Grid
@@ -63,11 +37,6 @@ function TrendingCardGroup({ trendingList, loadingTrending }) {
         justifyContent="center"
       >
         {loadingTrending ? (
-          // placeholder.map((item) => (
-          //     <Grid key={item.id} item xs={6} sm={4} md={3}>
-          //       {detailSkeleton}
-          //     </Grid>
-          //   ))
           <Stack spacing={2}>
             <Skeleton variant="text" />
             <Skeleton
@@ -78,7 +47,6 @@ function TrendingCardGroup({ trendingList, loadingTrending }) {
             />
           </Stack>
         ) : (
-          // trendingList.map((item) => <MovieCard item={item} />)
           <>
             <Swiper
               slidesPerView={1}
