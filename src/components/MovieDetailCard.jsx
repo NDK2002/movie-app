@@ -6,18 +6,16 @@ import {
   IconButton,
   Skeleton,
   Stack,
-  styled,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import React from "react";
+
 import StarIcon from "@mui/icons-material/Star";
 import RecommendIcon from "@mui/icons-material/Recommend";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import VideoPlayer from "./VideoPlayer";
 
 function MovieDetailCard({ movieDetail, loading }) {
-  let { movieId } = useParams();
   const officialTrailer = movieDetail?.videos?.results?.find(
     (element) =>
       element.name.includes("Official Trailer") ||

@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  Divider,
-  Grid,
-  ListItemButton,
-  Paper,
-  Stack,
-  styled,
-  Typography,
-} from "@mui/material";
+import { Divider, Grid, Stack, Typography } from "@mui/material";
 import MovieCard from "./MovieCard";
 import { API_KEY } from "../app/config";
 import apiService from "../app/apiServie";
 import CategoryDropdown from "./CategoryDropdown";
 
 function Category() {
-  const [openGenres, setOpenGenres] = useState();
   const [loading, setLoading] = useState();
   const [movieList, setMovieList] = useState();
   const [genreId, setGenreId] = useState();
