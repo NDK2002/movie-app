@@ -1,40 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import Grid from "@mui/material/Grid";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import PaginationItem from "@mui/material/PaginationItem";
 import Divider from "@mui/material/Divider";
 import Skeleton from "@mui/material/Skeleton";
 import MovieCard from "./MovieCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Navigation, Pagination } from "swiper/modules";
+import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import RecommendIcon from "@mui/icons-material/Recommend";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { Box, Card, CardActionArea, CardContent, Paper } from "@mui/material";
-import { Link } from "react-router-dom";
-import "../App.css";
+import { Box } from "@mui/material";
+// import "../App.css";
 
-function TrendingCardGroup({ trendingList, loadingTrending }) {
-  const [cutList, setCutList] = useState();
-  const [copiedList, setcopiedList] = useState([]);
-
-  // function handleList() {
-  //   let y;
-  //   if (copiedList.length === 0) {
-  //     setcopiedList([...trendingList]);
-  //     y = [...trendingList].slice(0, 4);
-  //     copiedList.splice(0, 4);
-  //   } else if (copiedList.length === 4) {
-  //     setcopiedList([...trendingList]);
-  //     y = copiedList.splice(0, 4);
-  //   } else {
-  //     y = copiedList.splice(4, 4);
-  //   }
-  //   return y;
-  // }
+function TrendingCard({ trendingList, loadingTrending }) {
   const placeholder = [0, 1, 2, 3];
   const detailSkeleton = (
     <Stack spacing={1}>
@@ -52,36 +31,35 @@ function TrendingCardGroup({ trendingList, loadingTrending }) {
         <Typography variant="h5" color="#FFFFFF">
           TRENDING
         </Typography>
-
-        {/* <PaginationItem onClick={() => setCutList(handleList())} type="next" /> */}
       </Stack>
       <Divider />
       <Grid
         container
+        disableEqualOverflow
         direction="row"
         alignItems="center"
         justifyContent="center"
       >
         {loadingTrending ? (
-          // placeholder.map((item) => (
-          //     <Grid key={item.id} item xs={6} sm={4} md={3}>
-          //       {detailSkeleton}
-          //     </Grid>
-          //   ))
-          <Stack spacing={2}>
-            <Skeleton variant="text" />
-            <Skeleton
-              animation="wave"
-              variant="circular"
-              width={200}
-              height={300}
-            />
+          <Stack spacing={2} direction="row" width="100%">
+            {placeholder.map((item) => (
+              <Box key={item} sx={{ width: "200px" }}>
+                {detailSkeleton}
+              </Box>
+            ))}
           </Stack>
         ) : (
           // trendingList.map((item) => <MovieCard item={item} />)
-          <>
+          <Box
+            sx={{
+              width: "100%",
+              position: "relative",
+              zIndex: 1,
+              overflow: "visible",
+            }}
+          >
             <Swiper
-              slidesPerView={1}
+              slidesPerView="auto"
               spaceBetween={5}
               breakpoints={{
                 640: {
@@ -90,35 +68,30 @@ function TrendingCardGroup({ trendingList, loadingTrending }) {
                 },
                 768: {
                   slidesPerView: 3,
-                  spaceBetween: 2,
+                  spaceBetween: 20,
                 },
                 1024: {
                   slidesPerView: 4,
                   spaceBetween: 5,
                 },
               }}
+              navigation={true}
+              modules={[Navigation]}
               grabCursor
               className="mySwiper"
+              style={{ overflow: "visible" }}
             >
               {trendingList.map((item, i) => (
-                <SwiperSlide
-                  key={i}
-                  style={{
-                    width: "15%",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
+                <SwiperSlide key={i}>
                   <MovieCard item={item} />
                 </SwiperSlide>
               ))}
             </Swiper>
-          </>
+          </Box>
         )}
       </Grid>
     </>
   );
 }
 
-export default TrendingCardGroup;
+export default TrendingCard;

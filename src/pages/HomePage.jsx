@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import apiService from "../app/apiServie";
 import { API_KEY } from "../app/config";
 import MovieCard from "../components/MovieCard";
-import { Category } from "@mui/icons-material";
+import Category from "../components/Category";
 import TrendingCardGroup from "../components/TrendingCard";
 
 function HomePage() {

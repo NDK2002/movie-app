@@ -1,4 +1,5 @@
 import { alpha, CssBaseline } from "@mui/material";
+import { blue } from "@mui/material/colors";
 import {
   createTheme,
   ThemeProvider as MUIThemeProvider,
@@ -53,6 +54,16 @@ const GREY = {
   900: "#141414",
 };
 
+const BLUE = {
+  100: "#DAECFF",
+  200: "#99CCF3",
+  400: "#3399FF",
+  500: "#007FFF",
+  600: "#0072E5",
+  700: "#0059B2",
+  900: "#003A75",
+};
+
 const TRANSPARENT_WHITE = {
   15: alpha("#FFFFFF", 0.15),
   20: alpha("#FFFFFF", 0.2),
@@ -76,6 +87,7 @@ function ThemeProvider({ children }) {
       background: BACKGROUND,
       success: SUCCESS,
       grey: GREY,
+      blue: BLUE,
       transparent_while: TRANSPARENT_WHITE,
       transparent_black: TRANSPARENT_BLACK,
     },

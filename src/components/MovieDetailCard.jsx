@@ -18,7 +18,6 @@ import VideoPlayer from "./VideoPlayer";
 
 function MovieDetailCard({ movieDetail, loading }) {
   let { movieId } = useParams();
-  const [movieError, setMovieError] = useState();
   const officialTrailer = movieDetail?.videos?.results?.find(
     (element) =>
       element.name.includes("Official Trailer") ||
@@ -71,27 +70,24 @@ function MovieDetailCard({ movieDetail, loading }) {
               alignItems="center"
               flexDirection="row"
             >
-              <Typography mb={1} variant="h6" sx={{ color: "#FFF" }}>
+              <Typography
+                mb={1}
+                variant="h6"
+                sx={{ color: "#FFF", fontSize: "36px" }}
+              >
                 {`${movieDetail.original_title}`}
               </Typography>
               <Stack flexDirection="column" alignItems="end">
                 <IconButton
                   size="large"
-                  children={<StarIcon fontSize="large" />}
+                  children={
+                    <StarIcon fontSize="large" sx={{ color: "#FFF" }} />
+                  }
                   sx={{
                     backgroundColor: "rgba(225,0,0,0.9)",
                     marginRight: "30px",
                   }}
                 />
-                <Typography
-                  sx={{
-                    marginRight: "34px",
-                    marginTop: "10px",
-                  }}
-                  color="error"
-                >
-                  {movieError}
-                </Typography>
               </Stack>
             </Stack>
             <Stack my={{ xs: 2, md: 0 }}>

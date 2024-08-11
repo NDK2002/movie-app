@@ -29,25 +29,25 @@ export const tvShowsDropdown = [
   {
     id: 1,
     title: "Popular",
-    path: "/popular",
+    path: "/tv/popular",
     cName: "nav-item",
   },
   {
     id: 2,
     title: "Airing Today",
-    path: "/airing-today",
+    path: "/tv/airing-today",
     cName: "nav-item",
   },
   {
     id: 3,
     title: "On TV",
-    path: "/on-the-air",
+    path: "/tv/on-the-air",
     cName: "nav-item",
   },
   {
     id: 4,
     title: "Top Rated",
-    path: "/top-rated",
+    path: "/tv/top-rated",
     cName: "nav-item",
   },
 ];
@@ -56,7 +56,7 @@ export const peopleDropdown = [
   {
     id: 1,
     title: "Popular People",
-    path: "/popular",
+    path: "/person",
     cName: "nav-item",
   },
 ];
