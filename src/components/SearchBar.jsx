@@ -1,6 +1,7 @@
-import { alpha, InputBase, styled } from "@mui/material";
-import React from "react";
+import { alpha, Box, InputBase, styled } from "@mui/material";
+import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import { useSearchParams } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -41,16 +42,34 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchBar() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query") || "";
+  const [searchQuery, setSearchQuery] = useState(query);
+
+  const handleChange = (e) => {
+    setSearchQuery(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearchParams({ query: searchQuery });
+  };
   return (
-    <Search>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search..."
-        inputProps={{ "aria-label": "search" }}
-      />
-    </Search>
+    <Box component="form" onSubmit={handleSearch}>
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          name="query"
+          value={searchQuery}
+          onChange={handleChange}
+          placeholder="Search..."
+          inputProps={{ "aria-label": "search" }}
+        />
+      </Search>
+    </Box>
   );
 }
 

@@ -81,10 +81,9 @@ function AuthProvider({ children }) {
     callback();
   };
 
-  const logout = async (callback) => {
+  const logout = async () => {
     window.localStorage.removeItem("username");
     dispatch({ type: LOGOUT });
-    callback();
   };
 
   return (

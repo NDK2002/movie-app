@@ -1,17 +1,19 @@
-import { Box, Card, Grid, Stack, Typography } from "@mui/material";
-import CardCover from "@mui/joy/CardCover";
-import CardContent from "@mui/joy/CardContent";
+import { Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import apiService from "../app/apiServie";
 import { API_KEY } from "../app/config";
-import MovieCard from "../components/MovieCard";
+
 import Category from "../components/Category";
-import TrendingCardGroup from "../components/TrendingCard";
+import TrendingCard from "../components/TrendingCard";
+import { useSearchParams } from "react-router-dom";
+import MovieCard from "../components/MovieCard";
 
 function HomePage() {
   const [loadingTrending, setLoadingTrending] = useState();
   const [trendingList, setTrendingList] = useState([]);
-  const [cutInitial, setCutInitial] = useState();
+  const [movieList, setMovieList] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const q = searchParams.get("q");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +22,6 @@ function HomePage() {
         const res = await apiService.get(`trending/all/day?api_key=${API_KEY}`);
         const result = res.data.results;
         setTrendingList(result);
-        setCutInitial([...result].splice(16, 4));
         setLoadingTrending(false);
       } catch (error) {
         console.log(error.message);
@@ -28,6 +29,22 @@ function HomePage() {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoadingTrending(true);
+        const res = await apiService.get(
+          `search/movie?api_key=${API_KEY}&query=${q}`
+        );
+        setMovieList(res.data.results);
+        setLoadingTrending(false);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+    fetchData();
+  }, [q]);
 
   return (
     <>
@@ -41,17 +58,28 @@ function HomePage() {
           }
         }
       >
-        <Grid item direction="column" container>
-          <TrendingCardGroup
-            trendingList={trendingList}
-            cutInitial={cutInitial}
-            loadingTrending={loadingTrending}
-          />
-        </Grid>
+        {q ? (
+          <Grid container direction="row" columns={{ xs: 4, sm: 8, md: 12 }}>
+            {movieList?.map((movie, i) => (
+              <Grid item xs={2} sm={4} md={2} key={i} mt={2}>
+                <MovieCard item={movie} />
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+          <>
+            <Grid item direction="column" container>
+              <TrendingCard
+                trendingList={trendingList}
+                loadingTrending={loadingTrending}
+              />
+            </Grid>
 
-        <Grid item direction="column" mt={5} container>
-          <Category />
-        </Grid>
+            <Grid item direction="column" mt={5} container>
+              <Category />
+            </Grid>
+          </>
+        )}
       </Grid>
     </>
   );

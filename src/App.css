@@ -36,6 +36,17 @@ body {
   color: gainsboro;
 }
 
+.boxView {
+  overflow: visible !important;
+  scrollbar-width: none;
+  /* Firefox /
+}
+
+.boxView::-webkit-scrollbar,
+.boxView::-webkit-scrollbar {
+  display: none; / Chrome, Safari, and Opera */
+}
+
 .swiper {
   width: 100%;
   height: 100%;

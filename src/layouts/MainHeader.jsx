@@ -5,22 +5,27 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   alpha,
-  Button,
+  Avatar,
+  Divider,
   InputBase,
+  ListItemIcon,
   Menu,
   MenuItem,
   styled,
+  Tooltip,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import PersonIcon from "@mui/icons-material/Person";
 import Logo from "../components/Logo";
 import useAuth from "../hooks/useAuth";
 import { moviesDropdown } from "../components/NavItems";
 import { tvShowsDropdown } from "../components/NavItems";
 import { peopleDropdown } from "../components/NavItems";
 import DropDown from "../components/Dropdown";
+import { Logout, PersonAdd, Settings } from "@mui/icons-material";
 
 const linkStyle = {
   textDecoration: "none",
@@ -68,7 +73,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function MainHeader() {
   const { user } = useAuth();
-  const navigate = useNavigate();
+  let auth = useAuth();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const q = searchParams.get("q") || "";
+  const [searchQuery, setSearchQuery] = useState(q);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearchParams({ q: searchQuery });
+  };
+
+  const handleLogout = () => {
+    handleClose(); //menu close before signout so that login won't pop up.
+    auth.logout();
+  };
 
   return (
     <Box>
@@ -91,27 +122,86 @@ function MainHeader() {
           <DropDown name="Movies" menuItem={moviesDropdown} />
           <DropDown name="TV Shows" menuItem={tvShowsDropdown} />
           <DropDown name="People" menuItem={peopleDropdown} />
-          {/* <Link style={linkStyle}>Movies</Link>
-          <Link style={linkStyle}>TV Shows</Link>
-          <Link style={linkStyle}>People</Link>
-          <Link style={linkStyle}>My List</Link> */}
           <Box sx={{ flexGrow: 1 }} />
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              name="q"
-              // value={searchQuery}
-              // onChange={handleChange}
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-            />
-          </Search>
+          <Box component="form" onSubmit={handleSearch}>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                name="q"
+                value={searchQuery}
+                onChange={handleChange}
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+              />
+            </Search>
+          </Box>
           <NotificationsIcon sx={{ margin: "8px" }}></NotificationsIcon>
-          <Typography variant="h6" color="inherit" component="div">
+          {/* <Typography variant="h6" color="inherit" component="div">
             {user?.username}
-          </Typography>
+          </Typography> */}
+          <Tooltip title="Account settings">
+            <IconButton
+              onClick={handleClick}
+              size="small"
+              sx={{ ml: 2 }}
+              aria-controls={open ? "account-menu" : undefined}
+              aria-haspopup="true"
+              aria-expanded={open ? "true" : undefined}
+            >
+              <Avatar sx={{ width: 32, height: 32 }}>
+                <PersonIcon />
+              </Avatar>
+            </IconButton>
+          </Tooltip>
+          <Menu
+            anchorEl={anchorEl}
+            id="account-menu"
+            open={open}
+            onClose={handleClose}
+            onClick={handleClose}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                bgcolor: (theme) => theme.palette.grey[850],
+                overflow: "visible",
+                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                mt: 1.5,
+                "& .MuiAvatar-root": {
+                  width: 32,
+                  height: 32,
+                  ml: -0.5,
+                  mr: 1,
+                },
+                "&::before": {
+                  content: '""',
+                  display: "block",
+                  position: "absolute",
+                  top: 0,
+                  right: 14,
+                  width: 10,
+                  height: 10,
+                  bgcolor: "background.paper",
+                  transform: "translateY(-50%) rotate(45deg)",
+                  zIndex: 0,
+                },
+              },
+            }}
+            transformOrigin={{ horizontal: "right", vertical: "top" }}
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          >
+            <Typography sx={{ color: "#FFF", fontSize: 20, pl: 2, pb: 1 }}>
+              {user?.username}
+            </Typography>
+            <Divider sx={{ bgcolor: (theme) => theme.palette.grey[500] }} />
+            <MenuItem onClick={handleLogout} sx={{ color: "#FFF" }}>
+              <ListItemIcon>
+                <Logout fontSize="small" sx={{ color: "#FFF" }} />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
     </Box>

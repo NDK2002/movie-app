@@ -35,7 +35,6 @@ function TrendingCard({ trendingList, loadingTrending }) {
       <Divider />
       <Grid
         container
-        disableEqualOverflow
         direction="row"
         alignItems="center"
         justifyContent="center"
@@ -49,13 +48,13 @@ function TrendingCard({ trendingList, loadingTrending }) {
             ))}
           </Stack>
         ) : (
-          // trendingList.map((item) => <MovieCard item={item} />)
           <Box
+            className="boxView"
             sx={{
               width: "100%",
               position: "relative",
               zIndex: 1,
-              overflow: "visible",
+              alignItems: "center",
             }}
           >
             <Swiper
@@ -79,10 +78,10 @@ function TrendingCard({ trendingList, loadingTrending }) {
               modules={[Navigation]}
               grabCursor
               className="mySwiper"
-              style={{ overflow: "visible" }}
+              style={{ overflow: "visible", alignItems: "center" }}
             >
               {trendingList.map((item, i) => (
-                <SwiperSlide key={i}>
+                <SwiperSlide key={i} style={{ alignItems: "center" }}>
                   <MovieCard item={item} />
                 </SwiperSlide>
               ))}

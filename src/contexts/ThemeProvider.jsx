@@ -1,5 +1,4 @@
 import { alpha, CssBaseline } from "@mui/material";
-import { blue } from "@mui/material/colors";
 import {
   createTheme,
   ThemeProvider as MUIThemeProvider,

@@ -73,7 +73,9 @@ function MovieDetailCard({ movieDetail, loading }) {
                 variant="h6"
                 sx={{ color: "#FFF", fontSize: "36px" }}
               >
-                {`${movieDetail.original_title}`}
+                {`${movieDetail.original_title} (${
+                  movieDetail.release_date?.split("-")[0]
+                })`}
               </Typography>
               <Stack flexDirection="column" alignItems="end">
                 <IconButton

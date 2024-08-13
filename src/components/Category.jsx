@@ -32,7 +32,7 @@ function Category() {
       try {
         setLoading(true);
         const res = await apiService.get(
-          `discover/movie?api_key=${API_KEY}&include_video=true&language=en-US&with_genres=${genreId}&&append_to_response=videos'`
+          `discover/movie?api_key=${API_KEY}&include_video=true&language=en-US&with_genres=${genreId}&append_to_response=videos'`
         );
         setMovieList(res.data.results);
         setLoading(false);
@@ -44,7 +44,6 @@ function Category() {
   }, [genreId]);
 
   const handleChange = (genreId) => {
-    console.log(`===========${genreId}===========`);
     setGenreId(genreId);
   };
   return (

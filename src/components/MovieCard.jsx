@@ -22,6 +22,7 @@ export default function MovieCard({ item }) {
           zIndex: 1,
         },
         transition: "transform 0.3s ease-in-out",
+        alignItems: "center",
       }}
     >
       <CardActionArea
