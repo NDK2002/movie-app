@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 import apiService from "../app/apiServie";
 import { API_KEY } from "../app/config";
 import { Divider, Typography } from "@mui/material";
 import MovieDetailCard from "../components/MovieDetailCard";
 
 function MovieDetail() {
-  let auth = useAuth();
   let { movieId } = useParams();
   const [loading, setLoading] = useState();
   const [movieDetail, setMovieDetail] = useState(null);

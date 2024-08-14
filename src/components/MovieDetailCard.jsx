@@ -14,13 +14,33 @@ import StarIcon from "@mui/icons-material/Star";
 import RecommendIcon from "@mui/icons-material/Recommend";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import VideoPlayer from "./VideoPlayer";
+import { useParams } from "react-router-dom";
 
 function MovieDetailCard({ movieDetail, loading }) {
+  let { movieId } = useParams();
   const officialTrailer = movieDetail?.videos?.results?.find(
     (element) =>
       element.name.includes("Official Trailer") ||
       element.name.includes("Trailer")
   );
+
+  const addFavMovie = (title, poster, release, voteA, id) => {
+    let list = JSON.parse(localStorage.getItem("fav")) || [];
+
+    const movieExists = list.some((movie) => movie.id === id);
+
+    if (!movieExists) {
+      list.push({
+        id: id,
+        original_title: title,
+        poster_path: poster,
+        release_date: release,
+        vote_average: voteA,
+      });
+
+      localStorage.setItem("fav", JSON.stringify(list));
+    }
+  };
 
   const detailSkeleton = (
     <Stack spacing={1}>
@@ -79,6 +99,15 @@ function MovieDetailCard({ movieDetail, loading }) {
               </Typography>
               <Stack flexDirection="column" alignItems="end">
                 <IconButton
+                  onClick={() =>
+                    addFavMovie(
+                      movieDetail.original_title,
+                      movieDetail.poster_path,
+                      movieDetail.release_date,
+                      movieDetail.vote_average,
+                      movieId
+                    )
+                  }
                   size="large"
                   children={
                     <StarIcon fontSize="large" sx={{ color: "#FFF" }} />

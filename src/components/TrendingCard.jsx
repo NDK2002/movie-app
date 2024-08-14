@@ -74,8 +74,6 @@ function TrendingCard({ trendingList, loadingTrending }) {
                   spaceBetween: 5,
                 },
               }}
-              navigation={true}
-              modules={[Navigation]}
               grabCursor
               className="mySwiper"
               style={{ overflow: "visible", alignItems: "center" }}

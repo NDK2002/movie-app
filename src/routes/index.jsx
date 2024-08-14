@@ -8,6 +8,7 @@ import LoginPage from "../pages/LoginPage";
 import NotFoundPage from "../pages/NotFoundPage";
 import AuthRequire from "./AuthRequire";
 import DevelopingPage from "../pages/DevelopingPage";
+import FavoritePage from "../pages/FavoritePage";
 
 function Router() {
   return (
@@ -28,6 +29,7 @@ function Router() {
         <Route path="movie/:movieId" element={<MovieDetail />} />
         <Route path="tv/*" element={<DevelopingPage />} />
         <Route path="person" element={<DevelopingPage />} />
+        <Route path="favorite" element={<FavoritePage />} />
       </Route>
 
       <Route element={<BlankLayout />}>

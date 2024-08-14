@@ -19,6 +19,7 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
+import StarIcon from "@mui/icons-material/Star";
 import Logo from "../components/Logo";
 import useAuth from "../hooks/useAuth";
 import { moviesDropdown } from "../components/NavItems";
@@ -137,7 +138,15 @@ function MainHeader() {
               />
             </Search>
           </Box>
+          <IconButton
+            component={Link}
+            to="/favorite"
+            size="large"
+            color="inherit"
+            children={<StarIcon />}
+          />
           <NotificationsIcon sx={{ margin: "8px" }}></NotificationsIcon>
+
           {/* <Typography variant="h6" color="inherit" component="div">
             {user?.username}
           </Typography> */}

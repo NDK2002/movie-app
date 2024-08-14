@@ -1,29 +1,25 @@
-import React, { useEffect, useState } from "react";
-import apiService from "../app/apiServie";
-import { API_KEY } from "../app/config";
+import React from "react";
+import { Divider, Grid, Typography } from "@mui/material";
+import MovieCard from "../components/MovieCard";
 
 function FavoritePage() {
-  const movieId = window.localStorage.getItem("movieId");
-  const [loading, setLoading] = useState();
-  const [movieList, setMovieList] = useState([]);
+  let list = JSON.parse(localStorage.getItem("fav"));
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const res = await apiService.get(
-          `movie/movie_id?api_key=${API_KEY}&language=en-US`
-        );
-        const result = res.data.results;
-        movieList(result);
-        setLoading(false);
-      } catch (error) {
-        console.log(error.message);
-      }
-    };
-    fetchData();
-  });
-  return <div></div>;
+  return (
+    <>
+      <Typography variant="h5" mb={2}>
+        YOUR FAVORITES
+      </Typography>
+      <Divider sx={{ bgcolor: (theme) => theme.palette.grey[500] }} />
+      <Grid container direction="row" spacing={5} mt={2}>
+        {list?.map((item) => (
+          <Grid key={item.id} item xs={6} sm={4} md={3}>
+            <MovieCard item={item} />
+          </Grid>
+        ))}
+      </Grid>
+    </>
+  );
 }
 
 export default FavoritePage;
