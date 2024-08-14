@@ -7,7 +7,6 @@ import Skeleton from "@mui/material/Skeleton";
 import MovieCard from "./MovieCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { Navigation } from "swiper/modules";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Box } from "@mui/material";

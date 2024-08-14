@@ -1,14 +1,16 @@
 import {
+  Alert,
   Avatar,
   Box,
   Chip,
   Divider,
   IconButton,
   Skeleton,
+  Snackbar,
   Stack,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 
 import StarIcon from "@mui/icons-material/Star";
 import RecommendIcon from "@mui/icons-material/Recommend";
@@ -18,6 +20,7 @@ import { useParams } from "react-router-dom";
 
 function MovieDetailCard({ movieDetail, loading }) {
   let { movieId } = useParams();
+  const [showAlert, setShowAlert] = useState(false);
   const officialTrailer = movieDetail?.videos?.results?.find(
     (element) =>
       element.name.includes("Official Trailer") ||
@@ -39,7 +42,12 @@ function MovieDetailCard({ movieDetail, loading }) {
       });
 
       localStorage.setItem("fav", JSON.stringify(list));
+      setShowAlert(true);
     }
+  };
+
+  const handleCloseAlert = () => {
+    setShowAlert(false);
   };
 
   const detailSkeleton = (
@@ -117,6 +125,20 @@ function MovieDetailCard({ movieDetail, loading }) {
                     marginRight: "30px",
                   }}
                 />
+                <Snackbar
+                  open={showAlert}
+                  autoHideDuration={6000}
+                  onClose={handleCloseAlert}
+                >
+                  <Alert
+                    onClose={handleCloseAlert}
+                    severity="success"
+                    variant="filled"
+                    sx={{ width: "100%", bgcolor: "#FFF" }}
+                  >
+                    Movie added to favorites successfully!
+                  </Alert>
+                </Snackbar>
               </Stack>
             </Stack>
             <Stack my={{ xs: 2, md: 0 }}>
