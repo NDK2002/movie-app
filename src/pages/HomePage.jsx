@@ -6,7 +6,7 @@ import { API_KEY } from "../app/config";
 import Category from "../components/Category";
 import { useSearchParams } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
-import TrendingCard from "../components/trendingcard";
+import TrendingCard from "../components/trendingcard/index";
 
 function HomePage() {
   const [loadingTrending, setLoadingTrending] = useState();
