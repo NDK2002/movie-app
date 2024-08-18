@@ -9,8 +9,9 @@ export default function MovieCard({ item }) {
   return (
     <Card
       sx={{
-        width: "200px",
-        height: "300px",
+        width: "100%",
+        // height: "300px",
+        aspectRatio: 0.6,
         position: "relative",
         overflow: "hidden",
         "&:hover .movie-details": {
@@ -19,7 +20,7 @@ export default function MovieCard({ item }) {
         },
         "&:hover": {
           transform: "scale(1.2)",
-          zIndex: 1,
+          zIndex: 2,
         },
         transition: "transform 0.3s ease-in-out",
         alignItems: "center",
@@ -40,7 +41,7 @@ export default function MovieCard({ item }) {
             backgroundSize: "cover",
             backgroundPosition: "center",
             // width: "100%",
-            minHeight: "300px",
+            height: "100%",
             // paddingTop: "150%",
           }}
         />
@@ -60,7 +61,7 @@ export default function MovieCard({ item }) {
           }}
         >
           <Typography variant="subtitle1" noWrap>
-            {item.title}
+            {item.title ?? "No name"}
           </Typography>
           <Typography variant="body2">
             {item.release_date?.split("-")[0]} • {item.vote_average?.toFixed(1)}

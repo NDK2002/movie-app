@@ -40,12 +40,15 @@ function Category() {
         console.log(error.message);
       }
     };
-    fetchData();
+    if (genreId) {
+      fetchData();
+    }
   }, [genreId]);
 
   const handleChange = (genreId) => {
     setGenreId(genreId);
   };
+
   return (
     <>
       <Stack flexDirection="row" alignItems="center">
@@ -57,7 +60,7 @@ function Category() {
       <Divider sx={{ bgcolor: (theme) => theme.palette.grey[500] }} />
       <Grid container direction="row" columns={{ xs: 4, sm: 8, md: 12 }}>
         {movieList?.map((movie, i) => (
-          <Grid item xs={2} sm={4} md={2} key={i} mt={2}>
+          <Grid item xs={2} sm={4} md={2} key={i} mt={2} mr={2}>
             <MovieCard item={movie} />
           </Grid>
         ))}

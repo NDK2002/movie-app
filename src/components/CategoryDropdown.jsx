@@ -6,7 +6,7 @@ import {
   Select,
   styled,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
   "label + &": {
@@ -42,6 +42,13 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 
 function CategoryDropdown({ genresList, handleChange }) {
   const [genres, setGenres] = useState("");
+
+  useEffect(() => {
+    if (genresList?.length) {
+      setGenres(genresList[4].id);
+      handleChange(genresList[4].id);
+    }
+  }, [genresList, handleChange]);
 
   return (
     <Box

@@ -4,9 +4,9 @@ import apiService from "../app/apiServie";
 import { API_KEY } from "../app/config";
 
 import Category from "../components/Category";
-import TrendingCard from "../components/TrendingCard";
 import { useSearchParams } from "react-router-dom";
 import MovieCard from "../components/MovieCard";
+import TrendingCard from "../components/TrendingCard";
 
 function HomePage() {
   const [loadingTrending, setLoadingTrending] = useState();
@@ -61,7 +61,7 @@ function HomePage() {
         {q ? (
           <Grid container direction="row" columns={{ xs: 4, sm: 8, md: 12 }}>
             {movieList?.map((movie, i) => (
-              <Grid item xs={2} sm={4} md={2} key={i} mt={2}>
+              <Grid item xs={2} sm={4} md={2} key={i} mt={2} mr={2}>
                 <MovieCard item={movie} />
               </Grid>
             ))}
